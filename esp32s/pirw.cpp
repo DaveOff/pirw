@@ -4,8 +4,8 @@
 const char* ssid = "SSID"; 
 const char* password = "PASSWORD";
 
-const int led = 19;
-const int motionSensor = 18;
+const int led = PIN;
+const int motionSensor = PIN;
 
 int ledState = LOW;
 
@@ -84,10 +84,8 @@ void webSocketEvent(uint8_t num, WStype_t type, uint8_t * payload, size_t length
         break;
     case WStype_TEXT:
         USE_SERIAL.printf("[%u] get Text: %s\n", num, payload);
-
-        char* aref = (char *) payload;
-
-        switch(resolveAction(aref)){
+        char* payloadChar = (char *) payload;
+        switch(resolveAction(payloadChar)){
           case Als:
             adminSwitch = adminSwitch ? false : true;
             webSocket.sendTXT(num, "Done");
